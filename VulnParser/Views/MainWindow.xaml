@@ -15,6 +15,27 @@
     </Window.DataContext>
     
     <Grid>
-
+        <DataGrid x:Name="VulnsGrid" IsReadOnly="True"
+                  ColumnHeaderHeight="30" Margin="150,20,10,40"
+                  Style="{StaticResource DataGridColors}">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#3a4047"/>
+                    <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                    <Setter Property="BorderBrush" Value="#5197c0"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Идентификатор угрозы" Binding="{Binding Path=ID}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                <DataGridTextColumn Header="Наименование угрозы" Binding="{Binding Path=Name}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                <DataGridTextColumn Header="Описание угрозы" Binding="{Binding Path=Description}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                <DataGridTextColumn Header="Источник угрозы" Binding="{Binding Path=SourceOfThreat}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                <DataGridTextColumn Header="Объект воздействия угрозы" Binding="{Binding Path=InteractionObject}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                <DataGridTextColumn Header="Нарушение конфеденциальности" Binding="{Binding Path=ViolationOfConfidentiality}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                <DataGridTextColumn Header="Нарушение целостности" Binding="{Binding Path=IntegrityViolation}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                <DataGridTextColumn Header="Нарушение доступности" Binding="{Binding Path=ViolationOfAvailability}" HeaderStyle="{StaticResource DataGridHeader}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:VulnParser"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/ButtonStyle.xaml"/>
+                <ResourceDictionary Source="Styles/DataGridStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

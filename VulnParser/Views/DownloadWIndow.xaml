@@ -1,0 +1,16 @@
+﻿<Window x:Class="VulnParser.Views.DownloadWIndow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VulnParser.Views"
+        mc:Ignorable="d"
+        Title="VulnsParser" Height="180" Width="350"
+        Background="#30353a" ResizeMode="CanMinimize">
+    <Grid>
+        <Label Content="Скачать базу уязвимостей?!" Foreground="White"
+               HorizontalAlignment="Center" Margin="10" FontSize="12"/>
+        <Button x:Name="downloadBtn" Content="Ok" Style="{StaticResource Buttons}"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Click="downloadBtn_Click"/>
+    </Grid>
+</Window>
