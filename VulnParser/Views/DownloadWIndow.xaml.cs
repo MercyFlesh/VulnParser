@@ -4,9 +4,9 @@ using VulnParser.Models;
 
 namespace VulnParser.Views
 {
-    public partial class DownloadWIndow : Window
+    public partial class DownloadWindow : Window
     {
-        public DownloadWIndow()
+        public DownloadWindow()
         {
             InitializeComponent();
         }

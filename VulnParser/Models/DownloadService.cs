@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net;
 using System.Windows;
 
@@ -17,7 +13,7 @@ namespace VulnParser.Models
             {
                 using (WebClient webClient = new WebClient())
                 {
-                    webClient.DownloadFileAsync(new Uri(downloadAddr), filePath);
+                    webClient.DownloadFile(new Uri(downloadAddr), filePath);
                 }
             }
             catch (Exception ex)
