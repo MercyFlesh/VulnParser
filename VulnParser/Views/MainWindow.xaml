@@ -8,35 +8,55 @@
         mc:Ignorable="d"
         Title="VulnParser" 
         Height="450" Width="800"
-        Background="#30353a">
-
-    <Window.DataContext>
-        <viwmodels:MainVM/>
-    </Window.DataContext>
+        Background="#2a2f33">
 
     <Grid>
-        <DataGrid x:Name="VulnsGrid" IsReadOnly="True"
-                  ColumnHeaderHeight="30" Margin="150,20,10,40"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="#5197c0" BorderThickness="0,0,1,0"/>
+
+        <StackPanel Orientation="Horizontal" Background="#30353a">
+            
+        </StackPanel>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            
+            <DataGrid x:Name="VulnsGrid" IsReadOnly="True"
+                  ColumnHeaderHeight="30" Margin="10,20,10,10" Grid.Row="0"
                   Style="{StaticResource DataGridColors}"
                   ItemsSource="{Binding Path=Vulnerabilities}">
-            <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="Background" Value="#3a4047"/>
-                    <Setter Property="BorderThickness" Value="0,0,0,1"/>
-                    <Setter Property="BorderBrush" Value="#5197c0"/>
-                </Style>
-            </DataGrid.ColumnHeaderStyle>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#3a4047"/>
+                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                        <Setter Property="BorderBrush" Value="#5197c0"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
 
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Идентификатор угрозы" Binding="{Binding Path=Id}" HeaderStyle="{StaticResource DataGridHeader}"/>
-                <DataGridTextColumn Header="Наименование угрозы" Binding="{Binding Path=Name}" HeaderStyle="{StaticResource DataGridHeader}"/>
-                <DataGridTextColumn Header="Описание угрозы" Binding="{Binding Path=Description}" HeaderStyle="{StaticResource DataGridHeader}"/>
-                <DataGridTextColumn Header="Источник угрозы" Binding="{Binding Path=Source}" HeaderStyle="{StaticResource DataGridHeader}" />
-                <DataGridTextColumn Header="Объект воздействия угрозы" Binding="{Binding Path=ImpactObject}" HeaderStyle="{StaticResource DataGridHeader}"/>
-                <DataGridTextColumn Header="Нарушение конфеденциальности" Binding="{Binding Path=ConfViol}" HeaderStyle="{StaticResource DataGridHeader}"/>
-                <DataGridTextColumn Header="Нарушение целостности" Binding="{Binding Path=IntegrViol}" HeaderStyle="{StaticResource DataGridHeader}"/>
-                <DataGridTextColumn Header="Нарушение доступности" Binding="{Binding Path=AccessViol}" HeaderStyle="{StaticResource DataGridHeader}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Идентификатор угрозы" Binding="{Binding Path=Id}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                    <DataGridTextColumn Header="Наименование угрозы" Binding="{Binding Path=Name}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                    <DataGridTextColumn Header="Описание угрозы" Binding="{Binding Path=Description}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                    <DataGridTextColumn Header="Источник угрозы" Binding="{Binding Path=Source}" HeaderStyle="{StaticResource DataGridHeader}" />
+                    <DataGridTextColumn Header="Объект воздействия угрозы" Binding="{Binding Path=ImpactObject}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                    <DataGridTextColumn Header="Нарушение конфеденциальности" Binding="{Binding Path=ConfViol}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                    <DataGridTextColumn Header="Нарушение целостности" Binding="{Binding Path=IntegrViol}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                    <DataGridTextColumn Header="Нарушение доступности" Binding="{Binding Path=AccessViol}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="PrevPageBtn" Content="&lt;" Style="{StaticResource Buttons}" />
+                <Label x:Name="PageNumber" Content="0/0" Foreground="White" 
+                       Width="70" MaxWidth="100" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
+                <Button x:Name="NextPageBtn" Content=">" Style="{StaticResource Buttons}" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

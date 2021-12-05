@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using VulnParser.ViwModels;
 
 namespace VulnParser
 {
@@ -7,6 +8,7 @@ namespace VulnParser
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainVM();
         }
     }
 }

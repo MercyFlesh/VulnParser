@@ -13,6 +13,8 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Background" Value="#434950"/>
         <Setter Property="Foreground" Value="#8b9096"/>
+        <Setter Property="BorderThickness" Value="1,1,1,1"/>
+        <Setter Property="BorderBrush" Value="#5197c0"/>
 
         <Setter Property="Template">
             <Setter.Value>
