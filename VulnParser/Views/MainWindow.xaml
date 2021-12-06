@@ -15,7 +15,6 @@
             <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Border BorderBrush="#5197c0" BorderThickness="0,0,1,0"/>
 
         <StackPanel Orientation="Horizontal" Background="#30353a">
             
@@ -51,12 +50,22 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="PrevPageBtn" Content="&lt;" Style="{StaticResource Buttons}" />
-                <Label x:Name="PageNumber" Content="0/0" Foreground="White" 
-                       Width="70" MaxWidth="100" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
-                <Button x:Name="NextPageBtn" Content=">" Style="{StaticResource Buttons}" />
-            </StackPanel>
+            <Grid Grid.Row="1" >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="PrevPageBtn" Content="&lt;" Style="{StaticResource Buttons}" />
+                    <Label x:Name="PageNumber" Content="0/0" Foreground="White" 
+                           Width="70" MaxWidth="100" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
+                    <Button x:Name="NextPageBtn" Content=">" Style="{StaticResource Buttons}" />
+                </StackPanel>
+
+                <ComboBox x:Name="countItemsOnPage"
+                          SelectedValue="{Binding CurrentCountItems, Mode=OneWayToSource}" SelectedValuePath="Content"
+                          Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="360,0,0,0">
+                    <ComboBoxItem Content="15" Tag="0"/>
+                    <ComboBoxItem Content="30" Tag="1"/>
+                    <ComboBoxItem Content="60" Tag="2"/>
+                </ComboBox>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

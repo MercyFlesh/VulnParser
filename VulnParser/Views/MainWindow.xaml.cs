@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using VulnParser.ViwModels;
 
 namespace VulnParser
@@ -8,6 +9,7 @@ namespace VulnParser
         public MainWindow()
         {
             InitializeComponent();
+            countItemsOnPage.SelectedIndex = 0;  
             DataContext = new MainVM();
         }
     }
