@@ -10,6 +10,11 @@
         Height="450" Width="800"
         Background="#2a2f33">
 
+    <Window.Resources>
+        <DiscreteObjectKeyFrame x:Key="VisiabilityColsFlagKey" Value="{Binding ColsFlag}"/>
+    </Window.Resources>
+
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
@@ -28,8 +33,9 @@
             
             <DataGrid x:Name="VulnsGrid" IsReadOnly="True"
                   ColumnHeaderHeight="30" Margin="10,20,10,10" Grid.Row="0"
+                  HorizontalAlignment="Stretch"
                   Style="{StaticResource DataGridColors}"
-                  ItemsSource="{Binding Path=Vulnerabilities}">
+                  ItemsSource="{Binding Path=CurrentPage}">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="Background" Value="#3a4047"/>
@@ -41,27 +47,27 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Идентификатор угрозы" Binding="{Binding Path=Id}" HeaderStyle="{StaticResource DataGridHeader}"/>
                     <DataGridTextColumn Header="Наименование угрозы" Binding="{Binding Path=Name}" HeaderStyle="{StaticResource DataGridHeader}"/>
-                    <DataGridTextColumn Header="Описание угрозы" Binding="{Binding Path=Description}" HeaderStyle="{StaticResource DataGridHeader}"/>
-                    <DataGridTextColumn Header="Источник угрозы" Binding="{Binding Path=Source}" HeaderStyle="{StaticResource DataGridHeader}" />
-                    <DataGridTextColumn Header="Объект воздействия угрозы" Binding="{Binding Path=ImpactObject}" HeaderStyle="{StaticResource DataGridHeader}"/>
-                    <DataGridTextColumn Header="Нарушение конфеденциальности" Binding="{Binding Path=ConfViol}" HeaderStyle="{StaticResource DataGridHeader}"/>
-                    <DataGridTextColumn Header="Нарушение целостности" Binding="{Binding Path=IntegrViol}" HeaderStyle="{StaticResource DataGridHeader}"/>
-                    <DataGridTextColumn Header="Нарушение доступности" Binding="{Binding Path=AccessViol}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                    <DataGridTextColumn Visibility="{Binding Value, Source={StaticResource VisiabilityColsFlagKey}}" Header="Описание угрозы" Binding="{Binding Path=Description}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                    <DataGridTextColumn Visibility="{Binding Value, Source={StaticResource VisiabilityColsFlagKey}}" Header="Источник угрозы" Binding="{Binding Path=Source}" HeaderStyle="{StaticResource DataGridHeader}" />
+                    <DataGridTextColumn Visibility="{Binding Value, Source={StaticResource VisiabilityColsFlagKey}}" Header="Объект воздействия угрозы" Binding="{Binding Path=ImpactObject}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                    <DataGridTextColumn Visibility="{Binding Value, Source={StaticResource VisiabilityColsFlagKey}}" Header="Нарушение конфеденциальности" Binding="{Binding Path=ConfViol}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                    <DataGridTextColumn Visibility="{Binding Value, Source={StaticResource VisiabilityColsFlagKey}}" Header="Нарушение целостности" Binding="{Binding Path=IntegrViol}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                    <DataGridTextColumn Visibility="{Binding Value, Source={StaticResource VisiabilityColsFlagKey}}" Header="Нарушение доступности" Binding="{Binding Path=AccessViol}" HeaderStyle="{StaticResource DataGridHeader}"/>
                 </DataGrid.Columns>
             </DataGrid>
 
             <Grid Grid.Row="1" >
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button x:Name="PrevPageBtn" Content="&lt;" Style="{StaticResource Buttons}" />
+                    <Button x:Name="PrevPageBtn" Content="&lt;" Style="{StaticResource Buttons}" Command="{Binding PrevPageClick}"/>
                     <Label x:Name="PageNumber" Content="0/0" Foreground="White" 
                            Width="70" MaxWidth="100" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
-                    <Button x:Name="NextPageBtn" Content=">" Style="{StaticResource Buttons}" />
+                    <Button x:Name="NextPageBtn" Content=">" Style="{StaticResource Buttons}" Command="{Binding NextPageClick}"/>
                 </StackPanel>
 
                 <ComboBox x:Name="countItemsOnPage"
                           SelectedValue="{Binding CurrentCountItems, Mode=OneWayToSource}" SelectedValuePath="Content"
                           Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="360,0,0,0">
-                    <ComboBoxItem Content="15" Tag="0"/>
+                    <ComboBoxItem Content="15" Tag="0" IsSelected="True"/>
                     <ComboBoxItem Content="30" Tag="1"/>
                     <ComboBoxItem Content="60" Tag="2"/>
                 </ComboBox>

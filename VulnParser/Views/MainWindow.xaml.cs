@@ -9,8 +9,17 @@ namespace VulnParser
         public MainWindow()
         {
             InitializeComponent();
-            countItemsOnPage.SelectedIndex = 0;  
             DataContext = new MainVM();
+        }
+
+        private void PrevBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void NextBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -1,17 +1,18 @@
 ﻿using System;
+using ExcelDataReader;
 using System.IO;
 using System.Windows;
-using ExcelDataReader;
 using VulnParser.ViwModels;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace VulnParser.Models
 {
     public class ParseExcelService
     {
-        public static ObservableCollection<Vulnerability> GetVulnsList(string filePath)
+        public static List<Vulnerability> GetVulnsList(string filePath)
         {
-            ObservableCollection<Vulnerability> vulnsList = new ObservableCollection<Vulnerability>();
+            List<Vulnerability> vulnsList = new List<Vulnerability>();
 
             try
             {
