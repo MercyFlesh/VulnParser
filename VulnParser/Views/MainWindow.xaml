@@ -56,11 +56,15 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Grid Grid.Row="1" >
+            <Grid Grid.Row="1">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button x:Name="PrevPageBtn" Content="&lt;" Style="{StaticResource Buttons}" Command="{Binding PrevPageClick}"/>
-                    <Label x:Name="PageNumber" Content="0/0" Foreground="White" 
-                           Width="70" MaxWidth="100" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
+                    <Label x:Name="PageNumber" Content="{Binding CurrentPageNum}" Foreground="White" 
+                           HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="/" Foreground="White" 
+                          HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
+                    <Label x:Name="CountPages" Content="{Binding CountPages}" Foreground="White" 
+                           HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
                     <Button x:Name="NextPageBtn" Content=">" Style="{StaticResource Buttons}" Command="{Binding NextPageClick}"/>
                 </StackPanel>
 

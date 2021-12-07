@@ -40,21 +40,42 @@ namespace VulnParser.ViwModels
             set 
             { 
                 currentCountItems = Convert.ToInt32(value);
-                countPages = (int)Math.Ceiling(((double)VulnerabilitiesList.Count) / currentCountItems);
+                CountPages = (int)Math.Ceiling(((double)VulnerabilitiesList.Count) / currentCountItems);
                 UpdatePageCollection();
                 OnPropertyChanged();
             }
         }
 
+        public int CurrentPageNum
+        {
+            get => currentPageNum;
+            set
+            {
+                currentPageNum = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int CountPages
+        {
+            get => countPages;
+            set
+            {
+                countPages = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public MainVM()
         {
             NextPageClick = new RelayCommand(
-                (object param) => { currentPageNum++; UpdatePageCollection(); }, 
-                (object param) => { return currentPageNum < countPages; }
+                (object param) => { CurrentPageNum++; UpdatePageCollection(); }, 
+                (object param) => { return CurrentPageNum < countPages; }
             );
             PrevPageClick = new RelayCommand(
-                (object param) => { currentPageNum--; UpdatePageCollection(); }, 
-                (object param) => { return currentPageNum != 1; }
+                (object param) => { CurrentPageNum--; UpdatePageCollection(); }, 
+                (object param) => { return CurrentPageNum != 1; }
             );
             
             ColsFlag = Visibility.Hidden;            
@@ -72,12 +93,10 @@ namespace VulnParser.ViwModels
         }
 
         /// <summary>
-        /// obs collection isnt updated without this fuck...
         /// (╯°□°)╯ ┻━━┻
         /// </summary>
         public void UpdatePageCollection()
         {
-            MessageBox.Show(currentPageNum.ToString());
             CurrentPage.Clear();
             foreach(var vuln in PagedService<Vulnerability>
                 .GetCurrentPage(VulnerabilitiesList, currentCountItems, currentPageNum, countPages))
