@@ -87,7 +87,7 @@
     <Compile Include="Models\PagedService.cs" />
     <Compile Include="Models\ParseExcelService.cs" />
     <Compile Include="ViewModels\BaseVM.cs" />
-    <Compile Include="ViewModels\Commands\RelayCommand.cs" />
+    <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\MainVM.cs" />
     <Compile Include="ViewModels\Vulnerability.cs" />
     <Compile Include="Views\DownloadWindow.xaml.cs">

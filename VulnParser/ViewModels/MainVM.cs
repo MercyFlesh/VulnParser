@@ -18,6 +18,8 @@ namespace VulnParser.ViwModels
         public ObservableCollection<Vulnerability> CurrentPage { get; set; } = new ObservableCollection<Vulnerability>();
         public RelayCommand NextPageClick { get; }
         public RelayCommand PrevPageClick { get; }
+        public RelayCommand HidenFullTable { get; }
+        public RelayCommand VisibleFullTable { get; }
         
         private int currentCountItems;
         private int currentPageNum = 1;
@@ -30,6 +32,7 @@ namespace VulnParser.ViwModels
             set
             {
                 colsFlag = value;
+                UpdatePageCollection();
                 OnPropertyChanged();
             }
         }
@@ -40,7 +43,9 @@ namespace VulnParser.ViwModels
             set 
             { 
                 currentCountItems = Convert.ToInt32(value);
+                CurrentPageNum = 1;
                 CountPages = (int)Math.Ceiling(((double)VulnerabilitiesList.Count) / currentCountItems);
+
                 UpdatePageCollection();
                 OnPropertyChanged();
             }
@@ -66,7 +71,6 @@ namespace VulnParser.ViwModels
             }
         }
 
-
         public MainVM()
         {
             NextPageClick = new RelayCommand(
@@ -77,8 +81,17 @@ namespace VulnParser.ViwModels
                 (object param) => { CurrentPageNum--; UpdatePageCollection(); }, 
                 (object param) => { return CurrentPageNum != 1; }
             );
-            
-            ColsFlag = Visibility.Hidden;            
+
+            HidenFullTable = new RelayCommand(
+                o => { ColsFlag = Visibility.Hidden; },
+                o => { return true; }
+            );
+
+            VisibleFullTable = new RelayCommand(
+                o => { ColsFlag = Visibility.Visible; },
+                o => { return true; }
+            );
+
             if (!File.Exists(fileName))
             {
                 new DownloadWindow().ShowDialog();
@@ -86,9 +99,10 @@ namespace VulnParser.ViwModels
 
             if (File.Exists(fileName))
             {
+                ColsFlag = Visibility.Hidden;
                 VulnerabilitiesList = ParseExcelService.GetVulnsList(fileName);
-                CurrentPage = new ObservableCollection<Vulnerability>(PagedService<Vulnerability>
-                    .GetCurrentPage(VulnerabilitiesList, currentCountItems, currentPageNum, countPages));
+                //CurrentPage = new ObservableCollection<Vulnerability>(PagedService<Vulnerability>
+                //    .GetCurrentPage(VulnerabilitiesList, currentCountItems, currentPageNum, countPages));
             }
         }
 
@@ -101,6 +115,14 @@ namespace VulnParser.ViwModels
             foreach(var vuln in PagedService<Vulnerability>
                 .GetCurrentPage(VulnerabilitiesList, currentCountItems, currentPageNum, countPages))
             {
+                if (ColsFlag == Visibility.Hidden)
+                {
+                    if (!vuln.Id.StartsWith("УБИ."))
+                        vuln.Id = vuln.Id.Insert(0, "УБИ.");
+                }
+                else if (vuln.Id.StartsWith("УБИ."))
+                    vuln.Id = vuln.Id.Remove(0, 4);
+
                 CurrentPage.Add(vuln);
             }
         }
