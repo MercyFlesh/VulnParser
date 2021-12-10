@@ -9,7 +9,7 @@ namespace VulnParser.ViewModels
 {
     public class UpdateVM : BaseVM
     {
-        public string localFileTempPath = Path.GetTempPath() + fileName;
+        public string fileTempPathName = Path.GetTempPath() + fileName;
         public List<Vulnerability> oldVulnsList { get; set; }
         public List<Vulnerability> newVulnsList { get; set; }
         public ObservableCollection<Vulnerability> BeforeChangesList { get; set; } = new ObservableCollection<Vulnerability>();
@@ -32,14 +32,19 @@ namespace VulnParser.ViewModels
             this.oldVulnsList = oldVulnsList;
             try
             {
-                //DownloadService.Download(downloadPath, localFileTempPath);
-                DownloadService.Download(downloadPath, fileName);
-                if (File.Exists(fileName))
+                /*DownloadService.Download(downloadPath, pathName);
+                if (File.Exists(pathName))
                 {
-                    newVulnsList = ParseExcelService.GetVulnsList(fileName);
+                    newVulnsList = ParseExcelService.GetVulnsList(pathName);
+                }*/
+                
+                DownloadService.Download(downloadPath, fileTempPathName);
+                if (File.Exists(fileTempPathName))
+                {
+                    newVulnsList = ParseExcelService.GetVulnsList(fileTempPathName);
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw;
             }

@@ -123,18 +123,18 @@ namespace VulnParser.ViewModels
                 o => { return true; }
             );
 
-            if (!File.Exists(fileName))
+            if (!File.Exists(pathName))
             {
                 new DownloadWindow().ShowDialog();
             }
 
-            if (File.Exists(fileName))
+            if (File.Exists(pathName))
             {
                 ColsFlag = Visibility.Hidden;
 
                 try
                 {
-                    VulnerabilitiesList = ParseExcelService.GetVulnsList(fileName);
+                    VulnerabilitiesList = ParseExcelService.GetVulnsList(pathName);
                 }
                 catch(Exception ex)
                 {
@@ -167,10 +167,18 @@ namespace VulnParser.ViewModels
             string tempPath = ParseExcelService.GetOpenFileName();
             if (!string.IsNullOrEmpty(tempPath))
             {
-                fileName = tempPath;
-                VulnerabilitiesList = ParseExcelService.GetVulnsList(fileName);
-                UpdateCurrentPagesNum();
-                UpdatePageCollection();
+                pathName = tempPath;
+                try
+                {
+                    VulnerabilitiesList = ParseExcelService.GetVulnsList(pathName);
+                    
+                    UpdateCurrentPagesNum();
+                    UpdatePageCollection();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Update error: " + ex);
+                }
             }
         }
         

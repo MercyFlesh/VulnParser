@@ -1,12 +1,15 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Reflection;
+using System.IO;
 
 namespace VulnParser.ViewModels
 {
     public abstract class BaseVM : INotifyPropertyChanged
     {
-        public static string fileName = "thrlist.xlsx";
-        public static string downloadPath = @"https://bdu.fstec.ru/files/documents/" + fileName;
+        public const string fileName = @"thrlist.xlsx";
+        public const string downloadPath = @"https://bdu.fstec.ru/files/documents/" + fileName;
+        public static string pathName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/" + fileName;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -21,7 +21,7 @@ namespace VulnParser.Views
             
             try
             {
-                DownloadService.Download(BaseVM.downloadPath, BaseVM.fileName);
+                DownloadService.Download(BaseVM.downloadPath, BaseVM.pathName);
             }
             catch(Exception ex)
             {
