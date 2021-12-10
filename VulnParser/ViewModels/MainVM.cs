@@ -10,7 +10,8 @@ namespace VulnParser.ViewModels
 {
     public class MainVM : BaseVM
     {
-        public List<Vulnerability> VulnerabilitiesList { get; set; } = new List<Vulnerability>();
+        private List<Vulnerability> vulnerabilitiesList;
+        public List<Vulnerability> VulnerabilitiesList { get => vulnerabilitiesList; set => vulnerabilitiesList = value; }
         public ObservableCollection<Vulnerability> CurrentPage { get; private set; } = new ObservableCollection<Vulnerability>();
         public RelayCommand NextPageClick { get; }
         public RelayCommand PrevPageClick { get; }
@@ -117,7 +118,15 @@ namespace VulnParser.ViewModels
             if (File.Exists(fileName))
             {
                 ColsFlag = Visibility.Hidden;
-                VulnerabilitiesList = ParseExcelService.GetVulnsList(fileName);
+
+                try
+                {
+                    VulnerabilitiesList = ParseExcelService.GetVulnsList(fileName);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Error for readig excel: " + ex);
+                }
                 /*CurrentPage = new ObservableCollection<Vulnerability>(PagedService<Vulnerability>
                     .GetCurrentPage(VulnerabilitiesList, currentCountItems, currentPageNum, countPages));*/
             }
@@ -125,8 +134,9 @@ namespace VulnParser.ViewModels
 
         private void RunUpdateDB()
         {
-            //UpdateWindow updateWindow = new UpdateWindow(VulnerabilitiesList);
-            //updateWindow.Show();
+            UpdateWindow updateWindow = new UpdateWindow(ref vulnerabilitiesList);
+            updateWindow.Show();
+            UpdatePageCollection();
         }
 
         /// <summary>

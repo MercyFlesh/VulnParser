@@ -1,0 +1,64 @@
+﻿<Window x:Class="VulnParser.Views.UpdateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VulnParser.Views"
+        mc:Ignorable="d"
+        Height="450" Width="800"
+        Background="#2a2f33">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="BeforeChangesDataGrid" 
+                  Grid.Column="0" Margin="15,20,3,10"
+                  Style="{StaticResource DataGridStyle}"
+                  ItemsSource="{Binding Path=BeforeChangesList}">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#3a4047"/>
+                    <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                    <Setter Property="BorderBrush" Value="#5197c0"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Идентификатор угрозы" Binding="{Binding Path=Id}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                <DataGridTextColumn Header="Наименование угрозы" Binding="{Binding Path=Name}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                <DataGridTextColumn Header="Описание угрозы" Binding="{Binding Path=Description}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                <DataGridTextColumn Header="Источник угрозы" Binding="{Binding Path=Source}" HeaderStyle="{StaticResource DataGridHeader}" />
+                <DataGridTextColumn Header="Объект воздействия угрозы" Binding="{Binding Path=ImpactObject}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                <DataGridTextColumn Header="Нарушение конфеденциальности" Binding="{Binding Path=ConfViol}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                <DataGridTextColumn Header="Нарушение целостности" Binding="{Binding Path=IntegrViol}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                <DataGridTextColumn Header="Нарушение доступности" Binding="{Binding Path=AccessViol}" HeaderStyle="{StaticResource DataGridHeader}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid x:Name="AfterChangesDataGrid" 
+                  Grid.Column="1" Margin="3,20,15,10"
+                  Style="{StaticResource DataGridStyle}"
+                  ItemsSource="{Binding Path=AfterChangesList}">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#3a4047"/>
+                    <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                    <Setter Property="BorderBrush" Value="#5197c0"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Идентификатор угрозы" Binding="{Binding Path=Id}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                <DataGridTextColumn Header="Наименование угрозы" Binding="{Binding Path=Name}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                <DataGridTextColumn Header="Описание угрозы" Binding="{Binding Path=Description}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                <DataGridTextColumn Header="Источник угрозы" Binding="{Binding Path=Source}" HeaderStyle="{StaticResource DataGridHeader}" />
+                <DataGridTextColumn Header="Объект воздействия угрозы" Binding="{Binding Path=ImpactObject}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                <DataGridTextColumn Header="Нарушение конфеденциальности" Binding="{Binding Path=ConfViol}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                <DataGridTextColumn Header="Нарушение целостности" Binding="{Binding Path=IntegrViol}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                <DataGridTextColumn Header="Нарушение доступности" Binding="{Binding Path=AccessViol}" HeaderStyle="{StaticResource DataGridHeader}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

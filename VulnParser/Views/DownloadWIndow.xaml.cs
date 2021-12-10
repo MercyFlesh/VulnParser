@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using VulnParser.ViewModels;
 using VulnParser.Models;
 
@@ -17,7 +18,16 @@ namespace VulnParser.Views
         private void downloadBtn_Click(object sender, RoutedEventArgs e)
         {
             downloadBtn.IsEnabled = false;
-            DownloadService.Download(BaseVM.downloadPath, BaseVM.fileName);
+            
+            try
+            {
+                DownloadService.Download(BaseVM.downloadPath, BaseVM.fileName);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error download file: " + ex);
+            }
+            
             Close();
         }
     }
