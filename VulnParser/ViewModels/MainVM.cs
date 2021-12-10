@@ -164,10 +164,11 @@ namespace VulnParser.ViewModels
 
         private void OpenNewFile()
         {
-            localPath = ParseExcelService.GetOpenFileName();
-            if (!string.IsNullOrEmpty(localPath))
+            string tempPath = ParseExcelService.GetOpenFileName();
+            if (!string.IsNullOrEmpty(tempPath))
             {
-                VulnerabilitiesList = ParseExcelService.GetVulnsList(localPath);
+                fileName = tempPath;
+                VulnerabilitiesList = ParseExcelService.GetVulnsList(fileName);
                 UpdateCurrentPagesNum();
                 UpdatePageCollection();
             }
