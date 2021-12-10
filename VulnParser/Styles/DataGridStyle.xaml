@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Style TargetType="DataGrid" x:Key="DataGridColors">
+    <Style TargetType="DataGrid" x:Key="DataGridStyle">
         <Setter Property="Background" Value="#3a4047"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="RowBackground" Value="#3a4047"/>
@@ -10,6 +10,8 @@
         <Setter Property="BorderBrush" Value="#5197c0"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="HeadersVisibility" Value="Column"/>
+        <Setter Property="ColumnHeaderHeight" Value="30"/>
     </Style>
 
     <Style TargetType="DataGridColumnHeader" x:Key="DataGridHeader">
@@ -18,6 +20,5 @@
         <Setter Property="BorderBrush" Value="#5197c0"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="FontSize" Value="12"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
     </Style>
 </ResourceDictionary>

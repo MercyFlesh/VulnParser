@@ -2,8 +2,7 @@
 using ExcelDataReader;
 using System.IO;
 using System.Windows;
-using VulnParser.ViwModels;
-using System.Collections.ObjectModel;
+using VulnParser.ViewModels;
 using System.Collections.Generic;
 
 namespace VulnParser.Models
@@ -45,7 +44,7 @@ namespace VulnParser.Models
             {
                 MessageBox.Show("Error: " + ex);
             }
-            
+
             return vulnsList;
         }
     }

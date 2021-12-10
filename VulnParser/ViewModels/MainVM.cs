@@ -1,28 +1,25 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Collections.ObjectModel;
 using VulnParser.Models;
 using VulnParser.Views;
 using System.Windows;
-using System.Windows.Input;
-using VulnParser.ViewModels.Commands;
-using System.ComponentModel;
 
-namespace VulnParser.ViwModels
+namespace VulnParser.ViewModels
 {
     public class MainVM : BaseVM
     {
         public List<Vulnerability> VulnerabilitiesList { get; set; } = new List<Vulnerability>();
-        public ObservableCollection<Vulnerability> CurrentPage { get; set; } = new ObservableCollection<Vulnerability>();
+        public ObservableCollection<Vulnerability> CurrentPage { get; private set; } = new ObservableCollection<Vulnerability>();
         public RelayCommand NextPageClick { get; }
         public RelayCommand PrevPageClick { get; }
         public RelayCommand HidenFullTable { get; }
         public RelayCommand VisibleFullTable { get; }
-        
+        public RelayCommand UpadteDB { get; }
+
         private int currentCountItems;
-        private int currentPageNum = 1;
+        private int currentPageNum;
         private int countPages;
         private Visibility colsFlag;
 
@@ -40,15 +37,30 @@ namespace VulnParser.ViwModels
         public string CurrentCountItems
         {
             get => currentCountItems.ToString();
-            set 
-            { 
+            set
+            {
                 currentCountItems = Convert.ToInt32(value);
-                CurrentPageNum = 1;
-                CountPages = (int)Math.Ceiling(((double)VulnerabilitiesList.Count) / currentCountItems);
+                if (VulnerabilitiesList.Count == 0)
+                {
+                    CurrentPageNum = 0;
+                    CountPages = 0;
+                }
+                else
+                {
+                    CurrentPageNum = 1;
+                    CountPages = (int)Math.Ceiling(((double)VulnerabilitiesList.Count) / currentCountItems);
+                }
 
                 UpdatePageCollection();
                 OnPropertyChanged();
             }
+        }
+
+        public void UpdateCurrentPagesNum()
+        {
+            CurrentPageNum = 1;
+            CountPages = (int)Math.Ceiling(((double)VulnerabilitiesList.Count) / currentCountItems);
+
         }
 
         public int CurrentPageNum
@@ -74,11 +86,11 @@ namespace VulnParser.ViwModels
         public MainVM()
         {
             NextPageClick = new RelayCommand(
-                (object param) => { CurrentPageNum++; UpdatePageCollection(); }, 
+                (object param) => { CurrentPageNum++; UpdatePageCollection(); },
                 (object param) => { return CurrentPageNum < countPages; }
             );
             PrevPageClick = new RelayCommand(
-                (object param) => { CurrentPageNum--; UpdatePageCollection(); }, 
+                (object param) => { CurrentPageNum--; UpdatePageCollection(); },
                 (object param) => { return CurrentPageNum != 1; }
             );
 
@@ -92,6 +104,11 @@ namespace VulnParser.ViwModels
                 o => { return true; }
             );
 
+            UpadteDB = new RelayCommand(
+                o => { RunUpdateDB(); },
+                o => { return true; }
+            );
+
             if (!File.Exists(fileName))
             {
                 new DownloadWindow().ShowDialog();
@@ -101,29 +118,33 @@ namespace VulnParser.ViwModels
             {
                 ColsFlag = Visibility.Hidden;
                 VulnerabilitiesList = ParseExcelService.GetVulnsList(fileName);
-                //CurrentPage = new ObservableCollection<Vulnerability>(PagedService<Vulnerability>
-                //    .GetCurrentPage(VulnerabilitiesList, currentCountItems, currentPageNum, countPages));
+                /*CurrentPage = new ObservableCollection<Vulnerability>(PagedService<Vulnerability>
+                    .GetCurrentPage(VulnerabilitiesList, currentCountItems, currentPageNum, countPages));*/
             }
+        }
+
+        private void RunUpdateDB()
+        {
+            //UpdateWindow updateWindow = new UpdateWindow(VulnerabilitiesList);
+            //updateWindow.Show();
         }
 
         /// <summary>
         /// (╯°□°)╯ ┻━━┻
         /// </summary>
-        public void UpdatePageCollection()
+        private void UpdatePageCollection()
         {
             CurrentPage.Clear();
-            foreach(var vuln in PagedService<Vulnerability>
+            foreach (var vuln in PagedService<Vulnerability>
                 .GetCurrentPage(VulnerabilitiesList, currentCountItems, currentPageNum, countPages))
             {
+                Vulnerability copyVuln = vuln.Copy();
                 if (ColsFlag == Visibility.Hidden)
                 {
-                    if (!vuln.Id.StartsWith("УБИ."))
-                        vuln.Id = vuln.Id.Insert(0, "УБИ.");
+                    copyVuln.Id = copyVuln.Id.Insert(0, "УБИ.");
                 }
-                else if (vuln.Id.StartsWith("УБИ."))
-                    vuln.Id = vuln.Id.Remove(0, 4);
 
-                CurrentPage.Add(vuln);
+                CurrentPage.Add(copyVuln);
             }
         }
     }

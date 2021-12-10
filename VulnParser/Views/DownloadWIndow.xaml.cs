@@ -1,9 +1,12 @@
 ﻿using System.Windows;
-using VulnParser.ViwModels;
+using VulnParser.ViewModels;
 using VulnParser.Models;
 
 namespace VulnParser.Views
 {
+    /// <summary>
+    /// Логика взаимодействия для DownloadWindow.xaml
+    /// </summary>
     public partial class DownloadWindow : Window
     {
         public DownloadWindow()

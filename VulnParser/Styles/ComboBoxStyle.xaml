@@ -7,7 +7,7 @@
                 Grid.ColumnSpan="2"
                 CornerRadius="2"
                 Background="#434950"/>
-            
+
             <Path 
                 x:Name="Arrow"
                 Grid.Column="1"     

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using VulnParser.ViwModels;
+using VulnParser.ViewModels;
 
-namespace VulnParser
+namespace VulnParser.Views
 {
     public partial class MainWindow : Window
     {
@@ -9,6 +9,7 @@ namespace VulnParser
         {
             InitializeComponent();
             DataContext = new MainVM();
+            countItemsOnPage.SelectedIndex = 0;
         }
 
         private void FullTableBtn_Click(object sender, RoutedEventArgs e)

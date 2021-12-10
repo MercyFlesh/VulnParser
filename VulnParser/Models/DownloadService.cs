@@ -2,7 +2,6 @@
 using System.Net;
 using System.Windows;
 
-
 namespace VulnParser.Models
 {
     public class DownloadService
