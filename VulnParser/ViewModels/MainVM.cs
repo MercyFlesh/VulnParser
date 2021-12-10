@@ -5,6 +5,8 @@ using System.Collections.ObjectModel;
 using VulnParser.Models;
 using VulnParser.Views;
 using System.Windows;
+using Microsoft.Win32;
+using System.Reflection;
 
 namespace VulnParser.ViewModels
 {
@@ -19,6 +21,7 @@ namespace VulnParser.ViewModels
         public RelayCommand VisibleFullTable { get; }
         public RelayCommand UpadteDB { get; }
         public RelayCommand SaveDB { get; }
+        public RelayCommand OpenDB { get; }
 
         private int currentCountItems;
         private int currentPageNum;
@@ -115,6 +118,11 @@ namespace VulnParser.ViewModels
                 o => { return true; }
             );
 
+            OpenDB = new RelayCommand(
+                o => { OpenNewFile(); },
+                o => { return true; }
+            );
+
             if (!File.Exists(fileName))
             {
                 new DownloadWindow().ShowDialog();
@@ -151,6 +159,17 @@ namespace VulnParser.ViewModels
             catch (Exception ex)
             {
                 MessageBox.Show("Update error: " + ex);
+            }
+        }
+
+        private void OpenNewFile()
+        {
+            localPath = ParseExcelService.GetOpenFileName();
+            if (!string.IsNullOrEmpty(localPath))
+            {
+                VulnerabilitiesList = ParseExcelService.GetVulnsList(localPath);
+                UpdateCurrentPagesNum();
+                UpdatePageCollection();
             }
         }
         

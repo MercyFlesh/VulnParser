@@ -32,10 +32,11 @@ namespace VulnParser.ViewModels
             this.oldVulnsList = oldVulnsList;
             try
             {
-                DownloadService.Download(downloadPath, localFileTempPath);
-                if (File.Exists(localFileTempPath))
+                //DownloadService.Download(downloadPath, localFileTempPath);
+                DownloadService.Download(downloadPath, fileName);
+                if (File.Exists(fileName))
                 {
-                    newVulnsList = ParseExcelService.GetVulnsList(localFileTempPath);
+                    newVulnsList = ParseExcelService.GetVulnsList(fileName);
                 }
             }
             catch(Exception)
@@ -45,14 +46,14 @@ namespace VulnParser.ViewModels
 
             Update();
             
-            countChanges = oldVulnsList.Count > newVulnsList.Count ? oldVulnsList.Count : newVulnsList.Count;
+            countChanges = BeforeChangesList.Count > AfterChangesList.Count ? BeforeChangesList.Count : AfterChangesList.Count;
             if (countChanges == 0)
             {
                 changesMessage = "Изменения отсутствуют";
             }
             else
             {
-                changesMessage = "База успешно обновлена";
+                changesMessage = $"База успешно обновлена\nКоличество изменений: {countChanges}";
                 oldVulnsList = newVulnsList;
             }
         }

@@ -28,9 +28,9 @@ namespace VulnParser.Models
                             Description = row.Cell(3).Value.ToString(),
                             Source = row.Cell(3).Value.ToString(),
                             ImpactObject = row.Cell(5).Value.ToString(),
-                            ConfViol = row.Cell(6).GetValue<int>() == 1 ? true : false,
-                            IntegrViol = row.Cell(7).GetValue<int>() == 1 ? true : false,
-                            AccessViol = row.Cell(8).GetValue<int>() == 1 ? true : false
+                            ConfViol = row.Cell(6).GetValue<int>() == 1 ? "да" : "нет",
+                            IntegrViol = row.Cell(7).GetValue<int>() == 1 ? "да" : "нет",
+                            AccessViol = row.Cell(8).GetValue<int>() == 1 ? "да" : "нет"
                         });
                     }
                 }
@@ -70,9 +70,9 @@ namespace VulnParser.Models
                     ws.Cell(i + 3, 3).Value = vulns[i].Description;
                     ws.Cell(i + 3, 4).Value = vulns[i].Source;
                     ws.Cell(i + 3, 5).Value = vulns[i].ImpactObject;
-                    ws.Cell(i + 3, 6).Value = vulns[i].ConfViol;
-                    ws.Cell(i + 3, 7).Value = vulns[i].IntegrViol;
-                    ws.Cell(i + 3, 8).Value = vulns[i].AccessViol;
+                    ws.Cell(i + 3, 6).Value = vulns[i].ConfViol == "да" ? 1 : 0;
+                    ws.Cell(i + 3, 7).Value = vulns[i].IntegrViol == "да" ? 1 : 0;
+                    ws.Cell(i + 3, 8).Value = vulns[i].AccessViol == "да" ? 1 : 0;
 
                     ws.Cell(i + 3, 1).WorksheetColumn().Width = 10;
                     ws.Cell(i + 3, 2).WorksheetColumn().Width = 20;
@@ -86,8 +86,8 @@ namespace VulnParser.Models
 
                 ws.Rows().Height = 15;
                 ws.Rows().Style.Alignment.Vertical = XLAlignmentVerticalValues.Top;
-                
-                var dlg = new SaveFileDialog()
+
+                SaveFileDialog dlg = new SaveFileDialog()
                 {
                     Filter = "Книга Excel (*.xlsx)|*.xlsx",
                     InitialDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
@@ -96,6 +96,22 @@ namespace VulnParser.Models
                 if (dlg.ShowDialog() == true)
                     wb.SaveAs(dlg.FileName);
             }
+        }
+
+        public static string GetOpenFileName()
+        {
+            OpenFileDialog openFile = new OpenFileDialog
+            {
+                Filter = "Книга Excel (*.xlsx)|*.xlsx",
+                InitialDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
+            };
+            
+            if (openFile.ShowDialog() == true)
+            {
+                return openFile.FileName;
+            }
+
+            return null;
         }
     }
 }

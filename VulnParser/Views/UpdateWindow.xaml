@@ -13,8 +13,16 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="StatusUpdate" Text="{Binding ChangesMessage}"
+               Grid.Column="0" Grid.Row="0" Margin="25,0,0,0" Foreground="White"/>
+
         <DataGrid x:Name="BeforeChangesDataGrid" 
-                  Grid.Column="0" Margin="15,20,3,10"
+                  Grid.Column="0" Grid.Row="1" Margin="15,10,3,10"
                   Style="{StaticResource DataGridStyle}"
                   ItemsSource="{Binding Path=BeforeChangesList}">
             <DataGrid.ColumnHeaderStyle>
@@ -38,7 +46,7 @@
         </DataGrid>
 
         <DataGrid x:Name="AfterChangesDataGrid" 
-                  Grid.Column="1" Margin="3,20,15,10"
+                  Grid.Column="1" Grid.Row="1" Margin="3,10,15,10"
                   Style="{StaticResource DataGridStyle}"
                   ItemsSource="{Binding Path=AfterChangesList}">
             <DataGrid.ColumnHeaderStyle>

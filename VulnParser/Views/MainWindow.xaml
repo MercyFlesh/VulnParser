@@ -30,6 +30,8 @@
                     Command="{Binding UpadteDB}"/>
             <Button x:Name="SaveBtn" Content="Save" Style="{StaticResource Buttons}" Margin="0,10,0,0"
                     Command="{Binding SaveDB}"/>
+            <Button x:Name="OpenBtn" Content="Open" Style="{StaticResource Buttons}" Margin="0,10,0,0"
+                    Command="{Binding OpenDB}"/>
         </StackPanel>
 
         <Grid Grid.Column="1">
