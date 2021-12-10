@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:VulnParser"
         xmlns:viwmodels="clr-namespace:VulnParser.ViewModels"
         mc:Ignorable="d"
-        Title="VulnParser" 
+        Title="VulnParser" Icon="Styles/bug.ico"
         Height="450" Width="800"
         Background="#2a2f33">
 
