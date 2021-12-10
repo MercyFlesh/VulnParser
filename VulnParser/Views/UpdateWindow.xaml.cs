@@ -15,10 +15,9 @@ namespace VulnParser.Views
             {
                 update = new UpdateVM(ref oldVulnsList);
             }
-            catch(Exception ex)
+            catch(Exception)
             {
-                MessageBox.Show("Update error: " + ex);
-                Close();
+                throw;
             }
             
             InitializeComponent();

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Windows;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using VulnParser.Views;

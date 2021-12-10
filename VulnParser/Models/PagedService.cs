@@ -8,7 +8,7 @@ namespace VulnParser.Models
         {
             List<T> tempPage = new List<T>();
 
-            if (curPage >= 0 && curPage <= countPages)
+            if (curPage >= 1 && curPage <= countPages)
             {
                 for (int i = 0; i < countItems; i++)
                 {

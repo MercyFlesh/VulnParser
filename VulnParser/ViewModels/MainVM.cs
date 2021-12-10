@@ -10,7 +10,7 @@ namespace VulnParser.ViewModels
 {
     public class MainVM : BaseVM
     {
-        private List<Vulnerability> vulnerabilitiesList;
+        private List<Vulnerability> vulnerabilitiesList = new List<Vulnerability>();
         public List<Vulnerability> VulnerabilitiesList { get => vulnerabilitiesList; set => vulnerabilitiesList = value; }
         public ObservableCollection<Vulnerability> CurrentPage { get; private set; } = new ObservableCollection<Vulnerability>();
         public RelayCommand NextPageClick { get; }
@@ -48,8 +48,7 @@ namespace VulnParser.ViewModels
                 }
                 else
                 {
-                    CurrentPageNum = 1;
-                    CountPages = (int)Math.Ceiling(((double)VulnerabilitiesList.Count) / currentCountItems);
+                    UpdateCurrentPagesNum();
                 }
 
                 UpdatePageCollection();
@@ -92,7 +91,7 @@ namespace VulnParser.ViewModels
             );
             PrevPageClick = new RelayCommand(
                 (object param) => { CurrentPageNum--; UpdatePageCollection(); },
-                (object param) => { return CurrentPageNum != 1; }
+                (object param) => { return CurrentPageNum > 1; }
             );
 
             HidenFullTable = new RelayCommand(
@@ -106,7 +105,7 @@ namespace VulnParser.ViewModels
             );
 
             UpadteDB = new RelayCommand(
-                o => { RunUpdateDB(); },
+                o => { UpdateDBList(); },
                 o => { return true; }
             );
 
@@ -127,16 +126,23 @@ namespace VulnParser.ViewModels
                 {
                     MessageBox.Show("Error for readig excel: " + ex);
                 }
-                /*CurrentPage = new ObservableCollection<Vulnerability>(PagedService<Vulnerability>
-                    .GetCurrentPage(VulnerabilitiesList, currentCountItems, currentPageNum, countPages));*/
             }
         }
 
-        private void RunUpdateDB()
+        private void UpdateDBList()
         {
-            UpdateWindow updateWindow = new UpdateWindow(ref vulnerabilitiesList);
-            updateWindow.Show();
-            UpdatePageCollection();
+            try
+            {
+                UpdateWindow updateWindow = new UpdateWindow(ref vulnerabilitiesList);
+                updateWindow.Show();
+
+                UpdateCurrentPagesNum();
+                UpdatePageCollection();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Update error: " + ex);
+            }
         }
 
         /// <summary>

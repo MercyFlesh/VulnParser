@@ -8,16 +8,9 @@ namespace VulnParser.Models
     {
         public static void Download(string downloadAddr, string filePath)
         {
-            try
+            using (WebClient webClient = new WebClient())
             {
-                using (WebClient webClient = new WebClient())
-                {
-                    webClient.DownloadFile(new Uri(downloadAddr), filePath);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("error: " + ex.Message);
+                webClient.DownloadFile(new Uri(downloadAddr), filePath);
             }
         }
     }

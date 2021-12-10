@@ -33,7 +33,6 @@ namespace VulnParser.Models
                 }
             }
           
-            
             return vulnsList;
         }
     }
