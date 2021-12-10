@@ -18,6 +18,7 @@ namespace VulnParser.ViewModels
         public RelayCommand HidenFullTable { get; }
         public RelayCommand VisibleFullTable { get; }
         public RelayCommand UpadteDB { get; }
+        public RelayCommand SaveDB { get; }
 
         private int currentCountItems;
         private int currentPageNum;
@@ -109,6 +110,11 @@ namespace VulnParser.ViewModels
                 o => { return true; }
             );
 
+            SaveDB = new RelayCommand(
+                o => { ParseExcelService.SaveVulnsList(VulnerabilitiesList); },
+                o => { return true; }
+            );
+
             if (!File.Exists(fileName))
             {
                 new DownloadWindow().ShowDialog();
@@ -128,7 +134,10 @@ namespace VulnParser.ViewModels
                 }
             }
         }
-
+        
+        /// <summary>
+        /// (╯°□°)╯ ┻━━┻
+        /// </summary>
         private void UpdateDBList()
         {
             try
@@ -144,10 +153,7 @@ namespace VulnParser.ViewModels
                 MessageBox.Show("Update error: " + ex);
             }
         }
-
-        /// <summary>
-        /// (╯°□°)╯ ┻━━┻
-        /// </summary>
+        
         private void UpdatePageCollection()
         {
             CurrentPage.Clear();

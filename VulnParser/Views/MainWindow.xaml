@@ -28,7 +28,8 @@
                     Click="FullTableBtn_Click" Command="{Binding VisibleFullTable}"/>
             <Button x:Name="UpdateBtn" Content="Update" Style="{StaticResource Buttons}" Margin="0,10,0,0" 
                     Command="{Binding UpadteDB}"/>
-            <Button x:Name="SaveBtn" Content="Save" Style="{StaticResource Buttons}" Margin="0,10,0,0"/>
+            <Button x:Name="SaveBtn" Content="Save" Style="{StaticResource Buttons}" Margin="0,10,0,0"
+                    Command="{Binding SaveDB}"/>
         </StackPanel>
 
         <Grid Grid.Column="1">
