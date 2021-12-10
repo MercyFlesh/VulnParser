@@ -1,6 +1,4 @@
-﻿using System;
-using ExcelDataReader;
-using System.IO;
+﻿using ClosedXML.Excel;
 using VulnParser.ViewModels;
 using System.Collections.Generic;
 
@@ -12,30 +10,29 @@ namespace VulnParser.Models
         {
             List<Vulnerability> vulnsList = new List<Vulnerability>();
 
-            using (var istream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+            using (var workBook = new XLWorkbook(filePath))
             {
-                using (var reader = ExcelReaderFactory.CreateReader(istream))
+                var rows = workBook.Worksheet(1).RowsUsed();
+                foreach (var row in rows)
                 {
-                    while (reader.Read())
+                    if (row.RowNumber() > 2)
                     {
-                        if (reader.Depth > 1)
+                        vulnsList.Add(new Vulnerability()
                         {
-                            vulnsList.Add(new Vulnerability()
-                            {
 
-                                Id = reader.GetDouble(0).ToString(),
-                                Name = reader.GetString(1),
-                                Description = reader.GetString(2),
-                                Source = reader.GetString(3),
-                                ImpactObject = reader.GetString(4),
-                                ConfViol = reader.GetDouble(5).ToString() == "1",
-                                IntegrViol = reader.GetDouble(6) == 1,
-                                AccessViol = reader.GetDouble(7) == 1
-                            });
-                        }
+                            Id = row.Cell(1).Value.ToString(),
+                            Name = row.Cell(2).Value.ToString(),
+                            Description = row.Cell(3).Value.ToString(),
+                            Source = row.Cell(3).Value.ToString(),
+                            ImpactObject = row.Cell(5).Value.ToString(),
+                            ConfViol = row.Cell(6).GetValue<int>() == 1 ? true : false,
+                            IntegrViol = row.Cell(7).GetValue<int>() == 1 ? true : false,
+                            AccessViol = row.Cell(8).GetValue<int>() == 1 ? true : false
+                        });
                     }
                 }
             }
+          
             
             return vulnsList;
         }
